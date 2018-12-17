@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Caltopo Proxy Demo</title>
+
+  <!-- Material design lite sources -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet"
+        href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer
+        src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <!-- Showdown source for markdown rendering -->
+  <script defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+
+  <!-- Styles rendering centered content w/ floating color ribbon. -->
+  <style>
+    
+    .background-ribbon {
+      width: 100%;
+      height: 10rem;
+      background-color: #3F51B5;
+      flex-shrink: 0;
+    }
+
+    .content-main {
+      margin-top: -8rem;
+      flex-shrink: 0;
+    }
+
+    .content-center {
+      border-radius: 2px;
+      padding: 5rem 4rem;
+    }
+
+  </style>
+  <script>
+
+  // Activate fetch once input element is valid.
+  function check_input() {
+    var valid = document.getElementById("map_id").checkValidity();
+    var button = document.getElementById("get_kml");
+
+    if( valid ) {
+      button.removeAttribute("disabled");
+    } else {
+      button.setAttribute("disabled","");
+    }
+  }
+
+  // Download network link through proxy.
+  function get_network_link() {
+    var target = document.getElementById("map_id").value;
+    var regex = /^(?:(?:https?:\/\/)?caltopo.com\/m\/)?(\w\w\w\w)$/g;
+
+    var map_id = regex.exec(target)[1].toUpperCase();
+
+    window.open("/link/" + map_id);
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+
+    var converter = new showdown.Converter({
+        emoji: true,
+        underline: true,
+    });
+    converter.setFlavor('github');
+
+
+    var elem = document.getElementById("md-content");
+    var markdown = elem.textContent;
+    var html = converter.makeHtml(markdown);
+
+    console.log(elem);
+    console.log(markdown);
+    console.log(html);
+
+    elem.innerHTML = html;
+  });
+
+  </script>
+</head>
+<body>
+  <div class="mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+    <!-- HEADER -->
+    <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-800">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Caltopo Proxy</span>
+      </div>
+    </header>
+
+    <div class="background-ribbon">
+    </div>
+
+    <main class="content-main mdl-layout__content">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone">
+        </div>
+
+        <div class="content-center mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+        <h2>Network Link Workaround</h2>
+
+          <div class="mdl-textfield mdl-js-textfield">
+            <input id="map_id"
+                 class="mdl-textfield__input"
+                 type="text"
+                 pattern="(?:(?:https?://)?caltopo.com/m/)?(\w\w\w\w)"
+                 onchange="check_input()"> <label class="mdl-textfield__label"
+                 for="map">Map URL/ID</label> <span class="mdl-textfield__error"><code>https://caltopo.com/m/[map_id]</code></span>
+          </div>
+          <br>
+          <button disabled
+               id="get_kml"
+               onclick="get_network_link()"
+               class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+               style="margin-bottom: 1rem">Network Link KML</button>
+
+          <div id="md-content">
+
+This service provides support for network-link access to Caltopo mapswithin the Google Earth web interface.google.com/web). Route information is stored by Caltopo and fetched by the Earth client on demand, allowing you to store and edit map routes within Caltopo with a live-updated view in Earth. 
+
+#### Suggested workflow:
+
+1. Create a [Caltopo Map](https://caltopo.com), add routes, and explicitly save the map.
+2. Open the [Earth Web Interface](https://earth.google.com/web) and enable KML import in the settings.
+3. Copypasta the Caltopo map url above and download the network link KML.
+4. Upload the KML to Earth.
+5. Edit routes in Caltopo, scope in Earth.
+
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
