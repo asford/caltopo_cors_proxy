@@ -1,0 +1,9 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "profile_name": "default",
+        "project_name": "caltopo-proxy",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-3ba2i1w65"
+    }
+}

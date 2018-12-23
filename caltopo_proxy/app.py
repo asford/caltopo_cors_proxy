@@ -17,7 +17,7 @@ def network_link(map_id=None):
 
     response = make_response(
         render_template(
-            "network_link.kml", map_id=map_id, host=f"http://{request.headers['host']}"
+            "network_link.kml", map_id=map_id, url_root=request.url_root
         )
     )
 
