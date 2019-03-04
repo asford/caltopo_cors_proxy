@@ -8,7 +8,7 @@
 		<visibility>1</visibility>
 		<open>1</open>
 		<Link>
-      <href>{{ url_root }}/m/{{ map_id }}?format=kml</href>
+      <href>{{ url_root }}m/{{ map_id }}?format=kml</href>
 			<refreshMode>onInterval</refreshMode>
 			<refreshInterval>10</refreshInterval>
 		</Link>
