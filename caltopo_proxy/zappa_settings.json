@@ -4,6 +4,8 @@
         "profile_name": "default",
         "project_name": "caltopo-proxy",
         "runtime": "python3.6",
-        "s3_bucket": "zappa-3ba2i1w65"
+        "s3_bucket": "zappa-3ba2i1w65",
+        "certificate_arn": "arn:aws:acm:us-east-1:372057302496:certificate/cc1d17ea-0875-4b18-9e4a-f915bec77b9e",
+        "domain": "caltopo-proxy.dev.asford.info"
     }
 }
